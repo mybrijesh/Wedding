@@ -21,7 +21,8 @@
 .banner-content-wrapper {
 	width: 776px;
 	margin: 0px auto;
-	background: rgba(236,231,210,0.2);
+	/* background: rgba(236,231,210,0.6); */
+	background: rgba(255,255,255,0.7);
 	text-align: center;
 	padding: 45px 20px 55px;
 	position: absolute;
