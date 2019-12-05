@@ -11,6 +11,7 @@ import { HomeComponent } from './content/home/home.component';
 import { InvitationComponent } from './content/invitation/invitation.component';
 import { InvitationDetailComponent } from './content/invitation-detail/invitation-detail.component';
 import { EmptyComponent } from './empty/empty.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { EmptyComponent } from './empty/empty.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

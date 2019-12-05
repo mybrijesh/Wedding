@@ -35,14 +35,14 @@
                             
                             <div *ngIf="!invitationCodeSubmitted" class="inner-wrapper inner-wrapper-custom ">
                                 <div class="input-box">
-                                        <input id="first_name" type="text" class="validate fontBlack" [value]="invitationCode">
-                                        <label for="first_name" class="active fontBlack">Enter Invitation Code</label>
+                                        <input #evitecode id="invitation_code" type="text" class="validate fontBlack" (input)="evitecode.value">
+                                        <label for="invitation_code" class="active fontBlack">Enter Invitation Code</label>
                                     <!-- <input id="name" type="text" name="invitationCode" placeholder="Enter Invitation Code" data-ng-pattern="/^(\D)+$/" data-ng-model="invitationCode" required="true"> -->
                                     <!-- <div data-ng-show="form.fname.$invalid && submit ">
                                         <span data-ng-show="form.fname.$invalid && submit" class="error-msg">This is not a valid name.</span>
                                     </div> -->
                                 </div>
-                                <button (click)="update()">Submit</button>
+                                <button type='button' (click)="update(evitecode.value)">Submit</button>
                             </div>
                             
                             <div *ngIf="invitationCodeSubmitted" class="inner-wrapper">

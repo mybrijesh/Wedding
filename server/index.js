@@ -1,41 +1,54 @@
 var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser')
-
+// https://malcoded.com/posts/angular-backend-express/
 var app = express()
 
+// app.use(cors(corsOptions))
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-var PORT = 3000;
+var PORT = 8000;
 
-app.get('/', function(req, res) {
-    res.status(200).send('Hello world');
-});
+app.route('/').get((req, res) => {
+  res.status(200).send('Hello world');
+})
 
-app.get('/rsvp', function(req, res) {
-  var getRsvpYes = "select firstname, lastname, phone, email, numOfGuest, rsvpConfirmed from brishti.invitations where rsvpConfirmed='false'"
-  con.query(getRsvpYes, function (err, result) {
-    if (err) throw err;
-    console.log("get all record where rsvp is no");
-    res.status(200).send(result[0].firstname);
-
+app.route('/getInvitationDetail').get((req, res) => {
+  var invitationCode = req.query.invitationCode;
+  console.log(invitationCode);
+  var query = `select firstname, lastname, phone, email, numOfGuest, id from brishti.invitations where invitationCode=?`
+  var data = [invitationCode];
+  con.query(query, data, function (err, result) {
+    if (err) {
+      console.log("/confirmrsvp");
+        console.error("sql: " + sql);
+        console.error("data: " + data);
+      // throw err;
+    }
+    // console.log(result[0]);
+    // var d = {firstname: result[0].firstname, email: result[0].email,
+    //   lastname: result[0].lastname, numOfGuest: result[0].numOfGuest,
+    //   phone: result[0].phone, id: result[0].id}
+    res.status(200).send(result[0]);
   });
-});
+})
 
-
-app.post('/confirmrsvp', function(req, res) {
+app.route('/confirmrsvp').post((req, res) => {
   console.log(req.body);      // your JSON
   var email = req.body.email ? req.body.email : "";  // second parameter is default
   var phone = req.body.phone ? req.body.phone : "";
-
   var numOfGuest = req.body.numOfGuest ? req.body.numOfGuest : "";
   var invitationCode = req.body.invitationCode ? req.body.invitationCode : "";
   var rsvpConfirmed =  req.body.rsvpConfirmed ? req.body.rsvpConfirmed : false;
-  
-  // var query = "SET SQL_SAFE_UPDATES = 0; \
-  // UPDATE brishti.invitations set numOfGuest=" + numOfGuest + ", email='" + email + "', phone='" + phone + "', rsvpConfirmed=" + rsvpConfirmed + " where invitationCode = '"+invitationCode+"'; SET SQL_SAFE_UPDATES = 1;";
-
+    
   var sql = `UPDATE brishti.invitations
            SET numOfGuest = ?, email = ?, phone = ?, rsvpConfirmed = ?
            WHERE invitationCode = ?;`;
@@ -43,13 +56,15 @@ app.post('/confirmrsvp', function(req, res) {
   con.query(sql, data, function (err, result) {
 
     if (err){
-      // return console.error(error.message);
-      throw err
+      console.log("/confirmrsvp");
+      console.error("sql: " + sql);
+      console.error("data: " + data);
+      res.send(false);
+      // throw err
     }
-    console.log('Rows affected:', result.affectedRows);
+    res.send(true);
   });
-  res.send(req.body);
-});
+})
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -83,7 +98,7 @@ var con = mysql.createConnection({
     //   console.log("Setting Query Safe Mode to false so we can update without using Key column");
     // });
 
-    var query = "INSERT INTO brishti.invitations (firstname, lastname, phone, email, numOfGuest, invitationCode) VALUES ('parth', 'patel', '647-530-1172', 'parth17elec@gmail.com', 2, '123456');";
+    var query = "INSERT INTO brishti.invitations (firstname, lastname, phone, email, numOfGuest, invitationCode) VALUES ('parth', 'patel', '647-530-1172', 'parth17elec@gmail.com', 2, 'abc123');";
     con.query(query, function (err, result) {
       if (err) throw err;
       console.log("Raw inserted into the table");
