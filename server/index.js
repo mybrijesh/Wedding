@@ -4,8 +4,6 @@ var bodyParser = require('body-parser')
 // https://malcoded.com/posts/angular-backend-express/
 var app = express()
 
-// app.use(cors(corsOptions))
-
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -108,3 +106,9 @@ var con = mysql.createConnection({
 app.listen(PORT, function() {
     console.log('Server is running on PORT:',PORT);
 });
+
+
+// const XLSX = require('xlsx');
+// const workbook = XLSX.readFile('Ridham.xlsx');
+// const sheet_name_list = workbook.SheetNames;
+// console.log(XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]))
