@@ -21,7 +21,7 @@ app.route('/').get((req, res) => {
 
 app.route('/getInvitationDetail').get((req, res) => {
   var invitationCode = req.query.invitationCode;
-  console.log(invitationCode);
+  // console.log(invitationCode);
   var query = `select firstname, lastname, phone, email, numOfGuest, id, rsvpConfirmed from brishti.invitations where invitationCode=?`
   var data = [invitationCode];
   con.query(query, data, function (err, result) {
@@ -40,7 +40,7 @@ app.route('/getInvitationDetail').get((req, res) => {
 })
 
 app.route('/confirmrsvp').post((req, res) => {
-  console.log(req.body);      // your JSON
+  // console.log(req.body);      // your JSON
   var email = req.body.email ? req.body.email : "";  // second parameter is default
   var phone = req.body.phone ? req.body.phone : "";
   var numOfGuest = req.body.numOfGuest ? req.body.numOfGuest : "";
