@@ -22,6 +22,10 @@ export class InvitationComponent implements OnInit {
 
   invitationCodeSubmitted: boolean;
 
+  dbConfirmation: boolean;
+
+  closeMessage: string;
+
   invitation: invitationCard = {
     firstName: 'Brijesh',
     lastName: 'Patel',
@@ -39,9 +43,13 @@ export class InvitationComponent implements OnInit {
   ngOnInit() {
     this.invitationCodeSubmitted = false;
     this.guestCounts = Array(this.invitation.numOfGuest).fill(0).map((x, i) => i );
+    this.dbConfirmation = false;
+    this.closeMessage = 'You will be missed.';
   }
 
   update(invitationCode: string) {
+    console.log('getInvitationDetail: ' + invitationCode);
+
     this.http.get<{}>('http://localhost:8000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
       if (data) {
 
@@ -51,6 +59,7 @@ export class InvitationComponent implements OnInit {
         this.invitation.invitationCode = invitationCode;
         this.invitation.phone = data.phone;
         this.invitation.numOfGuest = data.numOfGuest;
+        this.invitation.confirmedGuest = this.invitation.numOfGuest;
         this.guestCounts = Array(this.invitation.numOfGuest).fill(0).map((x, i) => i );
         this.invitationCodeSubmitted = true;
       }
@@ -61,10 +70,12 @@ export class InvitationComponent implements OnInit {
     this.invitation.rsvpConfirmed = rsvp;
     if (rsvp) {
       console.log('rsvp accepted');
+      this.closeMessage = 'We are excited to have you at our wedding.';
     } else {
       console.log('rsvp regret');
+      this.closeMessage = 'You will be missed.';
     }
-    console.log(this.invitation);
+    // console.log(this.invitation);
     const data = {
       email: this.invitation.email,
       phone: this.invitation.phone,
@@ -74,10 +85,17 @@ export class InvitationComponent implements OnInit {
     };
     this.http.post('http://localhost:8000/confirmrsvp', data).subscribe((response) => {
       if (response) {
-        console.log('RSVP Confirmed: ' + response);
+        console.log('RSVP Updated: ' + response);
       } else {
         console.log('Could not update rsvp');
       }
+      this.dbConfirmation = true;
     });
   }
+
+  closeRsvp(): void {
+    this.dbConfirmation = false;
+    this.invitationCodeSubmitted = false;
+  }
+
 }

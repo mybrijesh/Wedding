@@ -1,80 +1,62 @@
-<!-- <div class="contentBody">
+<section class="attending-class" id="rsvp">
     <div class="container">
         <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s12 m6">
-                        <input id="first_name" type="text" class="validate fontBlack" [value]="invitationCode">
-                        <label for="first_name" class="active">Enter Invitation Code</label>
-                    </div>
-                    
-                    <div class="col s12 m6 fontBlack">
-                        <a class="waves-effect waves-light btn" [routerLink]="['/invitation/', invitationCode ]"  ><i class="material-icons right">send</i>Submit</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> -->
-
-
-
-<section class="attending-class" id="rsvp">
-        <div class="container">
-            <div class="row">
-                <div class="header-center">
-                    <h2 style="color: white;">Are You Attending</h2>
-                </div>
+            <div class="header-center">
+                <h2 style="color: white;">Are You Attending</h2>
             </div>
-            <div class="row text-center">
-                <div class="col-xs-12 col-sm-10 col-sm-push-1">
-                    <div class="rsvp-wrapper" data-ng-controller="rsvp2Ctrl">
-                        <h3>RSVP</h3>
-                        <span class="plz-cls">Please RSVP before June 4th</span>
-                        <form class="rsvpForm" name="form" novalidate>
-                            
-                            <div *ngIf="!invitationCodeSubmitted" class="inner-wrapper inner-wrapper-custom ">
-                                <div class="input-box">
-                                        <input #evitecode id="invitation_code" type="text" class="validate fontBlack" (input)="evitecode.value">
-                                        <label for="invitation_code" class="active fontBlack">Enter Invitation Code</label>
-                                    <!-- <input id="name" type="text" name="invitationCode" placeholder="Enter Invitation Code" data-ng-pattern="/^(\D)+$/" data-ng-model="invitationCode" required="true"> -->
-                                    <!-- <div data-ng-show="form.fname.$invalid && submit ">
-                                        <span data-ng-show="form.fname.$invalid && submit" class="error-msg">This is not a valid name.</span>
-                                    </div> -->
-                                </div>
-                                <button type='button' (click)="update(evitecode.value)">Submit</button>
+        </div>
+        <div class="row text-center">
+            <div class="col-xs-12 col-sm-10 col-sm-push-1">
+                <div class="rsvp-wrapper" data-ng-controller="rsvp2Ctrl">
+                    <h3>RSVP</h3>
+                    
+                    <form class="rsvpForm" name="form" novalidate>
+                        
+                        <div *ngIf="!invitationCodeSubmitted && !dbConfirmation" class="inner-wrapper inner-wrapper-custom ">
+                            <span class="plz-cls">Please RSVP before June 4th</span>
+                            <div class="input-box">
+                                    <input #evitecode id="invitation_code" type="text" class="validate fontBlack" (input)="evitecode.value">
+                                    <label for="invitation_code" class="active fontBlack">Enter Invitation Code</label>
                             </div>
+                            <button type='button' (click)="update(evitecode.value)">Submit</button>
+                        </div>
+                        
+                        <div *ngIf="invitationCodeSubmitted && !dbConfirmation">
+                            <div  class="inner-wrapper">
                             
-                            <div *ngIf="invitationCodeSubmitted">
-                                <div  class="inner-wrapper">
-                                
-                                    <div class="input-box">
-                                        <input id="name" type="text" name="fname" placeholder="First Name" data-ng-pattern="/^(\D)+$/" [(value)]="invitation.firstName" disabled>
-                                    </div>
-                                    <div class="input-box">
-                                        <input id="lname" type="text" name="lname" placeholder="Last Name" data-ng-pattern="/^(\D)+$/" [(value)]="invitation.lastName" disabled>
-                                    </div>
+                                <div class="input-box">
+                                    <input id="name" type="text" name="fname" placeholder="First Name" data-ng-pattern="/^(\D)+$/" [(value)]="invitation.firstName" disabled>
                                 </div>
-                                <div class="inner-wrapper">
-                                    <div class="input-box">
-                                        <div class="row" id="nguest" name="nguest">
-                                            <div class="col-sm-6 col-md-6">
-                                                <span for="nguest" class="plz-cls" style="float: left; margin-top: 10px;">Number of Guest: </span>
-                                            </div>
-                                            <div class="col-sm-6 col-md-6">
-                                                <select name="guest" style="width: 100%;" (change)="invitation.confirmedGuest = $event.target.value;">
-                                                    <option *ngFor="let number of guestCounts" [value]="number + 1" selected="(number+1) == invitation.numOfGuest">{{number + 1}}</option>
-                                                </select>
-                                            </div>
+                                <div class="input-box">
+                                    <input id="lname" type="text" name="lname" placeholder="Last Name" data-ng-pattern="/^(\D)+$/" [(value)]="invitation.lastName" disabled>
+                                </div>
+                            </div>
+                            <div class="inner-wrapper">
+                                <div class="input-box">
+                                    <div class="row" id="nguest" name="nguest">
+                                        <div class="col-sm-6 col-md-6">
+                                            <span for="nguest" class="plz-cls" style="float: left; margin-top: 10px;">Number of Guest: </span>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6">
+                                            <select name="guest" style="width: 100%;" (change)="invitation.confirmedGuest = $event.target.value;">
+                                                <option *ngFor="let number of guestCounts" [value]="number + 1" selected="(number+1) == invitation.numOfGuest">{{number + 1}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <button type='button' (click)="updateRsvp(true)">Accept</button>
-                                <button type='button' (click)="updateRsvp(false)">Regret</button>
                             </div>
-                        </form> 
-                    </div>
+                            <button type='button' (click)="updateRsvp(true)" class="formButtons">Accept</button>
+                            <button type='button' (click)="updateRsvp(false)" class="formButtons">Regret</button>
+                        </div>
+
+                        <div *ngIf="invitationCodeSubmitted && dbConfirmation">
+                            <h4 class="plz-cls">Thank You for rsvp</h4>
+                            <h4 class="plz-cls">{{closeMessage}}</h4>
+                            <button type='button' (click)="closeRsvp()" class="formButtons">Close</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>

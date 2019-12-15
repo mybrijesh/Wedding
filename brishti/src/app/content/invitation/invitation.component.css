@@ -27,3 +27,8 @@
         padding: 70px 0px 90px;
     }
 }
+
+.formButtons:hover {
+    background:rgba(255,255,255, 0.5);
+}
+  
