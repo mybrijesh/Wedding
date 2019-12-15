@@ -45,57 +45,33 @@
                                 <button type='button' (click)="update(evitecode.value)">Submit</button>
                             </div>
                             
-                            <div *ngIf="invitationCodeSubmitted" class="inner-wrapper">
-                                <div class="input-box">
-                                    <input id="name" type="text" name="fname" placeholder="Your Name" data-ng-pattern="/^(\D)+$/" data-ng-model="user.name" required="">
-                                    <div data-ng-show="form.fname.$invalid && submit ">
-                                        <span data-ng-show="form.fname.$invalid && submit" class="error-msg">This is not a valid name.</span>
+                            <div *ngIf="invitationCodeSubmitted">
+                                <div  class="inner-wrapper">
+                                
+                                    <div class="input-box">
+                                        <input id="name" type="text" name="fname" placeholder="First Name" data-ng-pattern="/^(\D)+$/" [(value)]="invitation.firstName" disabled>
+                                    </div>
+                                    <div class="input-box">
+                                        <input id="lname" type="text" name="lname" placeholder="Last Name" data-ng-pattern="/^(\D)+$/" [(value)]="invitation.lastName" disabled>
                                     </div>
                                 </div>
-
-                                <div class="input-box">
-                                    <input id="mail" type="email" name="email" placeholder="Email" data-ng-model="user.email" required="" >
-                                    <div data-ng-show="form.email.$invalid && submit ">
-                                        <span data-ng-show="form.email.$invalid &&  submit" class="error-msg">This is not a valid email.</span>
+                                <div class="inner-wrapper">
+                                    <div class="input-box">
+                                        <div class="row" id="nguest" name="nguest">
+                                            <div class="col-sm-6 col-md-6">
+                                                <span for="nguest" class="plz-cls" style="float: left; margin-top: 10px;">Number of Guest: </span>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <select name="guest" style="width: 100%;" (change)="invitation.confirmedGuest = $event.target.value;">
+                                                    <option *ngFor="let number of guestCounts" [value]="number + 1" selected="(number+1) == invitation.numOfGuest">{{number + 1}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <button type='button' (click)="updateRsvp(true)">Accept</button>
+                                <button type='button' (click)="updateRsvp(false)">Regret</button>
                             </div>
-                            <!-- 
-                            <div class="inner-wrapper">
-                                <div class="input-box">
-                                    <input type="text" placeholder="No Of Guest" name="guest" data-ng-model="user.guest" data-ng-pattern="/^(\d)+$/" required="">
-
-                                    <div data-ng-show="form.guest.$invalid && submit">
-                                        <span data-ng-show="form.guest.$invalid &&  submit" class="error-msg">This is not a valid number.</span>
-                                    </div>
-
-                                </div>
-                                <div class="input-box">
-                                    <input type="text" name="Meal" placeholder="Meal Choice" data-ng-model="user.meal" required="" data-ng-pattern="/^([a-zA-Z0-9 _-]+)$/">
-
-                                    <div data-ng-show="form.Meal.$invalid && submit">
-
-                                        <span data-ng-show="form.Meal.$invalid &&  submit" class="error-msg">This is not a valid meal.</span>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <textarea placeholder="Notes" name="note" data-ng-model="user.notes" required = ''>
-                            
-                                    
-                            </textarea>
-                            <div data-ng-show="submit &&  form.notes.$invalid">
-                                <span data-ng-show="submit && form.note.$error.required" class="error-msg">Please enter</span>
-
-                            </div>
-
-                            <div id="contactSuccess" class="showmsg">
-                                <span>Hey! Thanks for reaching out. I will get back to you soon</span>
-                            </div>
-                            <button data-ng-click="update(form.$valid)">
-                                Submit
-                            </button> -->
                         </form> 
                     </div>
                 </div>

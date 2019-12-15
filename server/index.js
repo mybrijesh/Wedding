@@ -22,11 +22,11 @@ app.route('/').get((req, res) => {
 app.route('/getInvitationDetail').get((req, res) => {
   var invitationCode = req.query.invitationCode;
   console.log(invitationCode);
-  var query = `select firstname, lastname, phone, email, numOfGuest, id from brishti.invitations where invitationCode=?`
+  var query = `select firstname, lastname, phone, email, numOfGuest, id, rsvpConfirmed from brishti.invitations where invitationCode=?`
   var data = [invitationCode];
   con.query(query, data, function (err, result) {
     if (err) {
-      console.log("/confirmrsvp");
+      console.log("/getInvitationDetail");
         console.error("sql: " + sql);
         console.error("data: " + data);
       // throw err;
@@ -48,7 +48,7 @@ app.route('/confirmrsvp').post((req, res) => {
   var rsvpConfirmed =  req.body.rsvpConfirmed ? req.body.rsvpConfirmed : false;
     
   var sql = `UPDATE brishti.invitations
-           SET numOfGuest = ?, email = ?, phone = ?, rsvpConfirmed = ?
+           SET confirmedGuest = ?, email = ?, phone = ?, rsvpConfirmed = ?
            WHERE invitationCode = ?;`;
   var data = [numOfGuest, email, phone, rsvpConfirmed, invitationCode];
   con.query(sql, data, function (err, result) {
@@ -58,9 +58,10 @@ app.route('/confirmrsvp').post((req, res) => {
       console.error("sql: " + sql);
       console.error("data: " + data);
       res.send(false);
-      // throw err
     }
-    res.send(true);
+    // response.writeHead(413, {'Content-Type': 'text/plain'}).end();
+    //             request.connection.destroy();
+    res.status(200).send(true);
   });
 })
 
@@ -84,7 +85,17 @@ var con = mysql.createConnection({
       console.log("Database created");
     });
 
-    var sql = "CREATE TABLE IF NOT EXISTS brishti.invitations (id int NOT NULL AUTO_INCREMENT,invitationCode VARCHAR(255), firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, phone VARCHAR(255), email VARCHAR(255), rsvpConfirmed boolean DEFAULT false, numOfGuest int, PRIMARY KEY (id))";
+    var sql = "CREATE TABLE IF NOT EXISTS brishti.invitations (\
+      id int NOT NULL AUTO_INCREMENT,\
+      invitationCode VARCHAR(255), \
+    firstname VARCHAR(255) NOT NULL, \
+    lastname VARCHAR(255) NOT NULL, \
+    phone VARCHAR(255), \
+    email VARCHAR(255), \
+    rsvpConfirmed boolean DEFAULT false, \
+    numOfGuest int DEFAULT 0, \
+    confirmedGuest int DEFAULT 0, \
+    PRIMARY KEY (id))";
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log("Table created");
