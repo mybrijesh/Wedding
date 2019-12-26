@@ -135,7 +135,7 @@
 }
 .bell {
 	float: left;
-	width: 50%;
+	width: 100%;
 	position: relative;
 }
 .bell:after {	
@@ -148,6 +148,7 @@
     top: 12.3%;
 	border: 5px solid #e5e5e5;
 	border-radius:50%;
+	z-index: 998;
 }
 .bell:before{
 	content: "\f004";
@@ -163,7 +164,7 @@
 }
 .jack {
 	float: left;
-	width: 50%;
+	width: 100%;
 }
 .inner-header-wrapper-left {
 	text-align: right;
