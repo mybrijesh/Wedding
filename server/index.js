@@ -52,16 +52,19 @@ app.route('/confirmrsvp').post((req, res) => {
            WHERE invitationCode = ?;`;
   var data = [numOfGuest, email, phone, rsvpConfirmed, invitationCode];
   con.query(sql, data, function (err, result) {
-
+    // let done = true;
     if (err){
       console.log("/confirmrsvp");
       console.error("sql: " + sql);
       console.error("data: " + data);
-      res.send(false);
+      console.error("err: "+ err);
+      res.status(200).send(false);
+      // done = false;
     }
     // response.writeHead(413, {'Content-Type': 'text/plain'}).end();
     //             request.connection.destroy();
     res.status(200).send(true);
+    // res.status(200).json({ status: done });
   });
 })
 
