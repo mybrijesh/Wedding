@@ -22,6 +22,8 @@ export class InvitationComponent implements OnInit {
 
   invitationCodeSubmitted: boolean;
 
+  validInvitationCode: boolean;
+
   dbConfirmation: boolean;
 
   closeMessage: string;
@@ -45,14 +47,17 @@ export class InvitationComponent implements OnInit {
     this.guestCounts = Array(this.invitation.numOfGuest).fill(0).map((x, i) => i );
     this.dbConfirmation = false;
     this.closeMessage = 'You will be missed.';
+    this.validInvitationCode = true;
   }
 
   update(invitationCode: string) {
     console.log('getInvitationDetail: ' + invitationCode);
-
+    if (invitationCode.length === 0) {
+      this.validInvitationCode = false;
+      return;
+    }
     this.http.get<{}>('http://localhost:8000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
       if (data) {
-
         this.invitation.firstName = data.firstname;
         this.invitation.lastName = data.lastname;
         this.invitation.email = data.email;
@@ -62,6 +67,9 @@ export class InvitationComponent implements OnInit {
         this.invitation.confirmedGuest = this.invitation.numOfGuest;
         this.guestCounts = Array(this.invitation.numOfGuest).fill(0).map((x, i) => i );
         this.invitationCodeSubmitted = true;
+        this.validInvitationCode = true;
+      } else {
+        this.validInvitationCode = false;
       }
     });
   }
@@ -69,13 +77,12 @@ export class InvitationComponent implements OnInit {
   updateRsvp(rsvp: boolean) {
     this.invitation.rsvpConfirmed = rsvp;
     if (rsvp) {
-      console.log('rsvp accepted');
+      // console.log('rsvp accepted');
       this.closeMessage = 'We are excited to have you at our wedding.';
     } else {
-      console.log('rsvp regret');
+      // console.log('rsvp regret');
       this.closeMessage = 'You will be missed.';
     }
-    // console.log(this.invitation);
     const data = {
       email: this.invitation.email,
       phone: this.invitation.phone,

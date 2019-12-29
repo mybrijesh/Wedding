@@ -21,7 +21,6 @@ app.route('/').get((req, res) => {
 
 app.route('/getInvitationDetail').get((req, res) => {
   var invitationCode = req.query.invitationCode;
-  // console.log(invitationCode);
   var query = `select firstname, lastname, phone, email, numOfGuest, id, rsvpConfirmed from brishti.invitations where invitationCode=?`
   var data = [invitationCode];
   con.query(query, data, function (err, result) {
@@ -31,11 +30,12 @@ app.route('/getInvitationDetail').get((req, res) => {
         console.error("data: " + data);
       // throw err;
     }
-    // console.log(result[0]);
-    // var d = {firstname: result[0].firstname, email: result[0].email,
-    //   lastname: result[0].lastname, numOfGuest: result[0].numOfGuest,
-    //   phone: result[0].phone, id: result[0].id}
-    res.status(200).send(result[0]);
+    if(result.length == 0){
+      res.status(200).send(undefined);
+    }
+    else {
+      res.status(200).send(result[0]);
+    }
   });
 })
 
