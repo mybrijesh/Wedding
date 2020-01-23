@@ -56,7 +56,10 @@ export class InvitationComponent implements OnInit {
       this.validInvitationCode = false;
       return;
     }
-    this.http.get<{}>('http://localhost:8000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
+
+    this.http.get<{}>('http://ec2-34-222-142-104.us-west-2.compute.amazonaws.com:9000/getInvitationDetail?invitationCode=' + invitationCode)
+    .subscribe((data: any) => {
+      // this.http.get<{}>('http://localhost:8000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
       if (data) {
         this.invitation.firstName = data.firstname;
         this.invitation.lastName = data.lastname;
@@ -90,7 +93,8 @@ export class InvitationComponent implements OnInit {
       rsvpConfirmed: this.invitation.rsvpConfirmed,
       invitationCode: this.invitation.invitationCode
     };
-    this.http.post('http://localhost:8000/confirmrsvp', data).subscribe((response) => {
+    this.http.post('http://ec2-34-222-142-104.us-west-2.compute.amazonaws.com:9000/confirmrsvp', data).subscribe((response) => {
+      // this.http.post('http://localhost:8000/confirmrsvp', data).subscribe((response) => {
       if (response) {
         console.log('RSVP Updated: ' + response);
       } else {

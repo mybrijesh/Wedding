@@ -69,9 +69,14 @@ app.route('/confirmrsvp').post((req, res) => {
 })
 
 var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "password",
+    // host: "localhost",
+    // user: "root",
+    // password: "password",
+    // multipleStatements: true
+    host: "weddingrsvp.cuguk9cbft4p.us-west-2.rds.amazonaws.com",
+    user: "admin",
+    password: "",
+    port: 3306,
     multipleStatements: true
   });
   
@@ -110,7 +115,7 @@ var con = mysql.createConnection({
     //   console.log("Setting Query Safe Mode to false so we can update without using Key column");
     // });
 
-    var query = "INSERT INTO brishti.invitations (firstname, lastname, phone, email, numOfGuest, invitationCode) VALUES ('parth', 'patel', '647-530-1172', 'parth17elec@gmail.com', 2, 'abc123');";
+    var query = "INSERT INTO brishti.invitations (firstname, lastname, phone, email, numOfGuest, invitationCode) VALUES ('brijesh', 'patel', '9174966106', 'mybrijesh@gmail.com', 2, 'brij123');";
     con.query(query, function (err, result) {
       if (err) throw err;
       console.log("Raw inserted into the table");
