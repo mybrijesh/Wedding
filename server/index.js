@@ -75,7 +75,7 @@ var con = mysql.createConnection({
     // multipleStatements: true
     host: "weddingrsvp.cuguk9cbft4p.us-west-2.rds.amazonaws.com",
     user: "admin",
-    password: "",
+    password: "Drashti_3!",
     port: 3306,
     multipleStatements: true
   });
