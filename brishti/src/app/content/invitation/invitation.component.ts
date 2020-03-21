@@ -3,14 +3,18 @@ import { HttpClient } from '@angular/common/http';
 
 
 export interface invitationCard {
+  id: number;
+  invitationCode: string;
   firstName: string;
   lastName: string;
-  invitationCode: string;
-  email: string;
+  invitedGuest: number;
+  invitedToSangeet: boolean;
+  invitedToWedding: boolean;
+  invitedToReception: boolean;
+  rsvpConfirmedForSangeet: number;
+  rsvpConfirmedForWedding: number;
+  rsvpConfirmedForReception: number;
   rsvpConfirmed: boolean;
-  phone: string;
-  numOfGuest: number;
-  confirmedGuest: number;
 }
 
 @Component({
@@ -29,14 +33,18 @@ export class InvitationComponent implements OnInit {
   closeMessage: string;
 
   invitation: invitationCard = {
-    firstName: 'Brijesh',
-    lastName: 'Patel',
-    email: 'test@test.com',
-    phone: '9999',
+    id: 1,
     invitationCode: 'test',
-    numOfGuest: 3,
-    rsvpConfirmed: true,
-    confirmedGuest: 0,
+    firstName: 'string',
+    lastName: 'string',
+    invitedGuest: 3,
+    invitedToSangeet: true,
+    invitedToWedding: true,
+    invitedToReception: true,
+    rsvpConfirmedForSangeet: 2,
+    rsvpConfirmedForWedding: 2,
+    rsvpConfirmedForReception: 1,
+    rsvpConfirmed: false,
   } as invitationCard;
 
   guestCounts: Array<number>;
@@ -44,7 +52,7 @@ export class InvitationComponent implements OnInit {
   constructor(private http: HttpClient) {}
   ngOnInit() {
     this.invitationCodeSubmitted = false;
-    this.guestCounts = Array(this.invitation.numOfGuest).fill(0).map((x, i) => i );
+    this.guestCounts = Array(this.invitation.invitedGuest).fill(0).map((x, i) => i );
     this.dbConfirmation = false;
     this.closeMessage = 'You will be missed.';
     this.validInvitationCode = true;
@@ -57,18 +65,23 @@ export class InvitationComponent implements OnInit {
       return;
     }
 
-    this.http.get<{}>('http://ec2-34-222-142-104.us-west-2.compute.amazonaws.com:9000/getInvitationDetail?invitationCode=' + invitationCode)
-    .subscribe((data: any) => {
-      // this.http.get<{}>('http://localhost:8000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
+    // this.http.get<{}>('http://ec2-34-222-142-104.us-west-2.compute.amazonaws.com:9000/getInvitationDetail?invitationCode=' + invitationCode)
+    // .subscribe((data: any) => {
+    this.http.get<{}>('http://localhost:8000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
       if (data) {
+        this.invitation.id = data.id;
         this.invitation.firstName = data.firstname;
         this.invitation.lastName = data.lastname;
-        this.invitation.email = data.email;
+        this.invitation.invitedGuest = data.invitedGuest;
+        this.invitation.invitedToSangeet = data.invitedToSangeet;
+        this.invitation.invitedToWedding = data.invitedToWedding;
+        this.invitation.invitedToReception = data.invitedToReception;
+        this.invitation.rsvpConfirmedForSangeet = data.rsvpConfirmedForSangeet;
+        this.invitation.rsvpConfirmedForWedding = data.rsvpConfirmedForWedding;
+        this.invitation.rsvpConfirmedForReception = data.rsvpConfirmedForReception;
+
         this.invitation.invitationCode = invitationCode;
-        this.invitation.phone = data.phone;
-        this.invitation.numOfGuest = data.numOfGuest;
-        this.invitation.confirmedGuest = this.invitation.numOfGuest;
-        this.guestCounts = Array(this.invitation.numOfGuest).fill(0).map((x, i) => i );
+        this.guestCounts = Array(this.invitation.invitedGuest).fill(0).map((x, i) => i );
         this.invitationCodeSubmitted = true;
         this.validInvitationCode = true;
       } else {
@@ -87,14 +100,14 @@ export class InvitationComponent implements OnInit {
       this.closeMessage = 'You will be missed.';
     }
     const data = {
-      email: this.invitation.email,
-      phone: this.invitation.phone,
-      numOfGuest: this.invitation.confirmedGuest,
-      rsvpConfirmed: this.invitation.rsvpConfirmed,
-      invitationCode: this.invitation.invitationCode
+      invitationCode: this.invitation.invitationCode,
+      rsvpConfirmed: this.invitation.rsvpConfirmed ,
+      rsvpConfirmedForSangeet: this.invitation.rsvpConfirmedForSangeet,
+      rsvpConfirmedForWedding: this.invitation.rsvpConfirmedForWedding,
+      rsvpConfirmedForReception: this.invitation.rsvpConfirmedForReception
     };
-    this.http.post('http://ec2-34-222-142-104.us-west-2.compute.amazonaws.com:9000/confirmrsvp', data).subscribe((response) => {
-      // this.http.post('http://localhost:8000/confirmrsvp', data).subscribe((response) => {
+    // this.http.post('http://ec2-34-222-142-104.us-west-2.compute.amazonaws.com:9000/confirmrsvp', data).subscribe((response) => {
+    this.http.post('http://localhost:8000/confirmrsvp', data).subscribe((response) => {
       if (response) {
         console.log('RSVP Updated: ' + response);
       } else {

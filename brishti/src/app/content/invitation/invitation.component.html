@@ -33,13 +33,23 @@
                             </div>
                             <div class="inner-wrapper">
                                 <div class="input-box">
-                                    <div class="row" id="nguest" name="nguest">
-                                        <div class="col-sm-6 col-md-6">
-                                            <span for="nguest" class="plz-cls" style="float: left; margin-top: 10px;">Number of Guest: </span>
+                                    <div class="row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <span for="rsvpConfirmedForWedding" class="plz-cls" style="float: left; margin-top: 10px;">Coming to Sangeet: </span>
+                                            <select name="guest" style="width: 100%;" (change)="invitation.rsvpConfirmedForSangeet = $event.target.value;" [value]="invitation.rsvpConfirmedForSangeet">
+                                                <option *ngFor="let number of guestCounts" [value]="number + 1" selected="(number+1) == invitation.invitedGuest">{{number + 1}}</option>
+                                            </select>
                                         </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            <select name="guest" style="width: 100%;" (change)="invitation.confirmedGuest = $event.target.value;">
-                                                <option *ngFor="let number of guestCounts" [value]="number + 1" selected="(number+1) == invitation.numOfGuest">{{number + 1}}</option>
+                                        <div class="col-sm-4 col-md-4">
+                                            <span for="rsvpConfirmedForWedding" class="plz-cls" style="float: left; margin-top: 10px;">Coming to Wedding: </span>
+                                            <select name="guest" style="width: 100%;" (change)="invitation.rsvpConfirmedForWedding = $event.target.value;" [value]="invitation.rsvpConfirmedForWedding">
+                                                <option *ngFor="let number of guestCounts" [value]="number + 1" selected="(number+1) == invitation.invitedGuest">{{number + 1}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <span for="rsvpConfirmedForReception" class="plz-cls" style="float: left; margin-top: 10px;">Coming to Reception: </span>
+                                            <select name="guest" style="width: 100%;" (change)="invitation.rsvpConfirmedForReception = $event.target.value;" [value]="invitation.rsvpConfirmedForReception">
+                                                <option *ngFor="let number of guestCounts" [value]="number + 1" selected="(number+1) == invitation.invitedGuest">{{number + 1}}</option>
                                             </select>
                                         </div>
                                     </div>

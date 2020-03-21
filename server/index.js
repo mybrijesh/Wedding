@@ -21,14 +21,15 @@ app.route('/').get((req, res) => {
 
 app.route('/getInvitationDetail').get((req, res) => {
   var invitationCode = req.query.invitationCode;
-  var query = `select firstname, lastname, phone, email, numOfGuest, id, rsvpConfirmed from brishti.invitations where invitationCode=?`
+  var query = `select firstname, lastname, invitedGuest, id,
+  invitedToSangeet, invitedToWedding, invitedToReception, 
+  rsvpConfirmedForSangeet, rsvpConfirmedForWedding, rsvpConfirmedForReception from brishti.invitations where invitationCode=?`
   var data = [invitationCode];
   con.query(query, data, function (err, result) {
     if (err) {
-      console.log("/getInvitationDetail");
+      console.log("Error ==> /getInvitationDetail");
         console.error("sql: " + sql);
         console.error("data: " + data);
-      // throw err;
     }
     if(result.length == 0){
       res.status(200).send(undefined);
@@ -41,20 +42,19 @@ app.route('/getInvitationDetail').get((req, res) => {
 
 app.route('/confirmrsvp').post((req, res) => {
   // console.log(req.body);      // your JSON
-  var email = req.body.email ? req.body.email : "";  // second parameter is default
-  var phone = req.body.phone ? req.body.phone : "";
-  var numOfGuest = req.body.numOfGuest ? req.body.numOfGuest : "";
   var invitationCode = req.body.invitationCode ? req.body.invitationCode : "";
   var rsvpConfirmed =  req.body.rsvpConfirmed ? req.body.rsvpConfirmed : false;
-    
+  var comingToSangeet = req.body.rsvpConfirmedForSangeet ? req.body.rsvpConfirmedForSangeet : 0;
+  var comingToWedding = req.body.rsvpConfirmedForWedding ? req.body.rsvpConfirmedForWedding : 0;
+  var comingToReception = req.body.rsvpConfirmedForReception ? req.body.rsvpConfirmedForReception : 0;
   var sql = `UPDATE brishti.invitations
-           SET confirmedGuest = ?, email = ?, phone = ?, rsvpConfirmed = ?
+           SET rsvpConfirmed = ?, rsvpConfirmedForSangeet = ?, rsvpConfirmedForWedding = ?, rsvpConfirmedForReception = ?
            WHERE invitationCode = ?;`;
-  var data = [numOfGuest, email, phone, rsvpConfirmed, invitationCode];
+  var data = [rsvpConfirmed, comingToSangeet, comingToWedding, comingToReception, invitationCode];
   con.query(sql, data, function (err, result) {
     // let done = true;
     if (err){
-      console.log("/confirmrsvp");
+      console.log("Error ==> /confirmrsvp");
       console.error("sql: " + sql);
       console.error("data: " + data);
       console.error("err: "+ err);
@@ -96,14 +96,17 @@ var con = mysql.createConnection({
     var sql = "CREATE TABLE IF NOT EXISTS brishti.invitations (\
       id int NOT NULL AUTO_INCREMENT,\
       invitationCode VARCHAR(255), \
-    firstname VARCHAR(255) NOT NULL, \
-    lastname VARCHAR(255) NOT NULL, \
-    phone VARCHAR(255), \
-    email VARCHAR(255), \
-    rsvpConfirmed boolean DEFAULT false, \
-    numOfGuest int DEFAULT 0, \
-    confirmedGuest int DEFAULT 0, \
-    PRIMARY KEY (id))";
+      firstname VARCHAR(255) NOT NULL, \
+      lastname VARCHAR(255) NOT NULL, \
+      invitedGuest int DEFAULT 0,\
+      invitedToSangeet boolean DEFAULT true, \
+      invitedToWedding boolean DEFAULT true, \
+      invitedToReception boolean DEFAULT true, \
+      rsvpConfirmedForSangeet int DEFAULT 0, \
+      rsvpConfirmedForWedding int DEFAULT 0, \
+      rsvpConfirmedForReception int DEFAULT 0, \
+      rsvpConfirmed boolean DEFAULT false, \
+      PRIMARY KEY (id))";
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log("Table created");
@@ -115,7 +118,7 @@ var con = mysql.createConnection({
     //   console.log("Setting Query Safe Mode to false so we can update without using Key column");
     // });
 
-    var query = "INSERT INTO brishti.invitations (firstname, lastname, phone, email, numOfGuest, invitationCode) VALUES ('brijesh', 'patel', '9174966106', 'mybrijesh@gmail.com', 2, 'brij123');";
+    var query = "INSERT INTO brishti.invitations (firstname, lastname, invitedGuest, invitationCode,rsvpConfirmedForSangeet,rsvpConfirmedForWedding,rsvpConfirmedForReception) VALUES ('brijesh', 'patel', 3, 'brij123',1,2,2);";
     con.query(query, function (err, result) {
       if (err) throw err;
       console.log("Raw inserted into the table");
