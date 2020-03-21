@@ -65,9 +65,9 @@ export class InvitationComponent implements OnInit {
       return;
     }
 
-    // this.http.get<{}>('http://ec2-34-222-142-104.us-west-2.compute.amazonaws.com:9000/getInvitationDetail?invitationCode=' + invitationCode)
-    // .subscribe((data: any) => {
-    this.http.get<{}>('http://localhost:8000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
+    this.http.get<{}>('http://ec2-34-222-142-104.us-west-2.compute.amazonaws.com:9000/getInvitationDetail?invitationCode=' + invitationCode)
+    .subscribe((data: any) => {
+    // this.http.get<{}>('http://localhost:8000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
       if (data) {
         this.invitation.id = data.id;
         this.invitation.firstName = data.firstname;
@@ -106,8 +106,8 @@ export class InvitationComponent implements OnInit {
       rsvpConfirmedForWedding: this.invitation.rsvpConfirmedForWedding,
       rsvpConfirmedForReception: this.invitation.rsvpConfirmedForReception
     };
-    // this.http.post('http://ec2-34-222-142-104.us-west-2.compute.amazonaws.com:9000/confirmrsvp', data).subscribe((response) => {
-    this.http.post('http://localhost:8000/confirmrsvp', data).subscribe((response) => {
+    this.http.post('http://ec2-34-222-142-104.us-west-2.compute.amazonaws.com:9000/confirmrsvp', data).subscribe((response) => {
+    // this.http.post('http://localhost:8000/confirmrsvp', data).subscribe((response) => {
       if (response) {
         console.log('RSVP Updated: ' + response);
       } else {
