@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+// import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -7,5 +8,13 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  constructor() {}
+
+  // safeURL: any;
+
+  // constructor(videoURL: string, private _sanitizer: DomSanitizer){
+  //   this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/watch?v=v-NX5Tjz-_M');
+  // }
+
+
+  constructor() {};
 }
