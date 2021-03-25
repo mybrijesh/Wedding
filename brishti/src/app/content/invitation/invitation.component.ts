@@ -65,7 +65,7 @@ export class InvitationComponent implements OnInit {
       return;
     }
 
-    this.http.get<{}>('http://52.12.154.173:9000/getInvitationDetail?invitationCode=' + invitationCode)
+    this.http.get<{}>('http://54.244.108.112:9000/getInvitationDetail?invitationCode=' + invitationCode)
     .subscribe((data: any) => {
     // this.http.get<{}>('http://localhost:9000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
       if (data) {
@@ -108,7 +108,7 @@ export class InvitationComponent implements OnInit {
     };
     console.log(data);
 
-    this.http.post('http://52.12.154.173:9000/confirmrsvp', data).subscribe((response) => {
+    this.http.post('http://54.244.108.112:9000/confirmrsvp', data).subscribe((response) => {
     // this.http.post('http://localhost:9000/confirmrsvp', data).subscribe((response) => {
       if (response) {
         console.log('RSVP Updated: ' + response);
