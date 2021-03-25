@@ -81,7 +81,7 @@ export class InvitationComponent implements OnInit {
         this.invitation.rsvpConfirmedForReception = data.rsvpConfirmedForReception;
 
         this.invitation.invitationCode = invitationCode;
-        this.guestCounts = Array(this.invitation.invitedGuest).fill(0).map((x, i) => i );
+        this.guestCounts = Array(this.invitation.invitedGuest + 1).fill(0).map((x, i) => i );
         this.invitationCodeSubmitted = true;
         this.validInvitationCode = true;
       } else {
