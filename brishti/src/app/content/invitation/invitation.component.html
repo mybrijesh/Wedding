@@ -11,7 +11,7 @@
                     <h3>RSVP</h3>
                     
                     <form class="rsvpForm" name="form" novalidate>
-                        
+                        <label for="covid" class="active fontBlack covid"><span>Required: Please get your Covid-19 vaccine done before attending any events</span></label>
                         <div *ngIf="!invitationCodeSubmitted && !dbConfirmation" class="inner-wrapper inner-wrapper-custom ">
                             <span class="plz-cls">Please RSVP before June 4th</span>
                             <div class="input-box">
@@ -59,6 +59,10 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div>
+
                                 </div>
                             </div>
                             <button type='button' (click)="updateRsvp(true)" class="formButtons">Accept</button>

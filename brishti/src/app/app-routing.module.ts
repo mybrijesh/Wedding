@@ -10,6 +10,7 @@ import { EmptyComponent } from './empty/empty.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'guestList', component: EmptyComponent },
   // {path: 'home', loadChildren: () => import('./content/home/home.component').then(mod => mod.HomeComponent)},
   // { path: 'invitation/:invitecode', component: InvitationDetailComponent },
   // { path: 'invitation', component: InvitationComponent },

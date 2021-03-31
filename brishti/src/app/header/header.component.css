@@ -1,3 +1,14 @@
 #header{
     position: fixed !important;
 }
+
+.customHeader{
+    text-align: center;
+}
+
+.covidHeader{
+    font-size: 40px;
+    width: auto;
+    text-align: center;
+    padding-top: 30px;
+}
