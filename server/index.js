@@ -40,6 +40,22 @@ app.route('/getInvitationDetail').get((req, res) => {
   });
 })
 
+app.route('/getGuestList').get((req, res) => {
+  var query = `select * from brishti.invitations`
+  con.query(query, function (err, result) {
+    if (err) {
+      console.log("Error ==> /getGuestList");
+        console.error("sql: " + sql);
+    }
+    if(result.length == 0){
+      res.status(200).send(undefined);
+    }
+    else {
+      res.status(200).send(result);
+    }
+  });
+})
+
 app.route('/confirmrsvp').post((req, res) => {
   // console.log(req.body);      // your JSON
   var invitationCode = req.body.invitationCode ? req.body.invitationCode : "";
@@ -118,11 +134,11 @@ var con = mysql.createConnection({
     //   console.log("Setting Query Safe Mode to false so we can update without using Key column");
     // });
 
-    var query = "INSERT INTO brishti.invitations (firstname, lastname, invitedGuest, invitationCode,rsvpConfirmedForSangeet,rsvpConfirmedForWedding,rsvpConfirmedForReception) VALUES ('brijesh', 'patel', 3, 'brij123',1,2,2);";
-    con.query(query, function (err, result) {
-      if (err) throw err;
-      console.log("Raw inserted into the table");
-    });    
+    // var query = "INSERT INTO brishti.invitations (firstname, lastname, invitedGuest, invitationCode,rsvpConfirmedForSangeet,rsvpConfirmedForWedding,rsvpConfirmedForReception) VALUES ('brijesh', 'patel', 3, 'brij123',1,2,2);";
+    // con.query(query, function (err, result) {
+    //   if (err) throw err;
+    //   console.log("Raw inserted into the table");
+    // });    
   });
 
 app.listen(PORT, function() {
