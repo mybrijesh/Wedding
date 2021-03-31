@@ -65,8 +65,7 @@ export class InvitationComponent implements OnInit {
       return;
     }
 
-    this.http.get<{}>('http://54.244.108.112:9000/getInvitationDetail?invitationCode=' + invitationCode)
-    .subscribe((data: any) => {
+    this.http.get<{}>('http://54.244.108.112:9000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
     // this.http.get<{}>('http://localhost:9000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
       if (data) {
         this.invitation.id = data.id;

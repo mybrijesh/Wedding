@@ -85,15 +85,15 @@ app.route('/confirmrsvp').post((req, res) => {
 })
 
 var con = mysql.createConnection({
-    // host: "localhost",
-    // user: "root",
-    // password: "password",
-    // multipleStatements: true
-    host: "weddingrsvp.cuguk9cbft4p.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Drashti_3",
-    port: 3306,
+    host: "localhost",
+    user: "root",
+    password: "password",
     multipleStatements: true
+    // host: "weddingrsvp.cuguk9cbft4p.us-west-2.rds.amazonaws.com",
+    // user: "admin",
+    // password: "Drashti_3",
+    // port: 3306,
+    // multipleStatements: true
   });
   
   con.connect(function(err) {

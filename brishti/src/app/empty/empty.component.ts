@@ -91,9 +91,8 @@ export class EmptyComponent implements OnInit {
   }
 
   getGuestList() {
-    this.http.get<{}>('http://54.244.108.112:9000/getGuestList')
-    .subscribe((records: any) => {
-    // this.http.get<{}>('http://localhost:9000/getInvitationDetail?invitationCode=' + invitationCode).subscribe((data: any) => {
+    this.http.get<{}>('http://54.244.108.112:9000/getGuestList').subscribe((records: any) => {
+    // this.http.get<{}>('http://localhost:9000/getGuestList').subscribe((records: any) => {
       if (records) {
 
         this.guestList = [];
@@ -104,13 +103,14 @@ export class EmptyComponent implements OnInit {
             firstName : data.firstname,
             lastName : data.lastname,
             invitedGuest : data.invitedGuest,
-            invitedToSangeet : data.invitedToSangeet,
-            invitedToWedding : data.invitedToWedding,
-            invitedToReception : data.invitedToReception,
+            invitedToSangeet : Boolean(data.invitedToSangeet),
+            invitedToWedding : Boolean(data.invitedToWedding),
+            invitedToReception : Boolean(data.invitedToReception),
             rsvpConfirmedForSangeet : data.rsvpConfirmedForSangeet,
             rsvpConfirmedForWedding : data.rsvpConfirmedForWedding,
             rsvpConfirmedForReception : data.rsvpConfirmedForReception,
-            invitationCode : data.invitationCode
+            invitationCode : data.invitationCode,
+            rsvpConfirmed: Boolean(data.rsvpConfirmed)
           }
           this.guestList.push(guest);
         });
