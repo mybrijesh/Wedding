@@ -134,11 +134,11 @@ var con = mysql.createConnection({
     //   console.log("Setting Query Safe Mode to false so we can update without using Key column");
     // });
 
-    // var query = "INSERT INTO brishti.invitations (firstname, lastname, invitedGuest, invitationCode,rsvpConfirmedForSangeet,rsvpConfirmedForWedding,rsvpConfirmedForReception) VALUES ('brijesh', 'patel', 3, 'brij123',1,2,2);";
-    // con.query(query, function (err, result) {
-    //   if (err) throw err;
-    //   console.log("Raw inserted into the table");
-    // });    
+    var query = "INSERT INTO brishti.invitations (firstname, lastname, invitedGuest, invitationCode,rsvpConfirmedForSangeet,rsvpConfirmedForWedding,rsvpConfirmedForReception) VALUES ('brijesh', 'patel', 3, 'brij123',1,2,2);";
+    con.query(query, function (err, result) {
+      if (err) throw err;
+      console.log("Raw inserted into the table");
+    });    
   });
 
 app.listen(PORT, function() {

@@ -64,7 +64,8 @@ export class EmptyComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.setCounts();
+    // this.setCounts();
+    this.getGuestList();
   }
 
   private setCounts() {
