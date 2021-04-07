@@ -15,6 +15,8 @@ export interface invitationCard {
   rsvpConfirmedForWedding: number;
   rsvpConfirmedForReception: number;
   rsvpConfirmed: boolean;
+  kids: number;
+  numOfKidsConfrimed: number;
 }
 
 @Component({
@@ -45,14 +47,18 @@ export class InvitationComponent implements OnInit {
     rsvpConfirmedForWedding: 2,
     rsvpConfirmedForReception: 1,
     rsvpConfirmed: false,
+    kids: 1,
+    numOfKidsConfrimed: 1,
   } as invitationCard;
 
   guestCounts: Array<number>;
+  kidsCounts: Array<number>;
 
   constructor(private http: HttpClient) {}
   ngOnInit() {
     this.invitationCodeSubmitted = false;
     this.guestCounts = Array(this.invitation.invitedGuest).fill(0).map((x, i) => i );
+    this.kidsCounts = Array(this.invitation.kids).fill(0).map((x, i) => i );
     this.dbConfirmation = false;
     this.closeMessage = 'You will be missed.';
     this.validInvitationCode = true;
@@ -78,9 +84,12 @@ export class InvitationComponent implements OnInit {
         this.invitation.rsvpConfirmedForSangeet = data.rsvpConfirmedForSangeet;
         this.invitation.rsvpConfirmedForWedding = data.rsvpConfirmedForWedding;
         this.invitation.rsvpConfirmedForReception = data.rsvpConfirmedForReception;
+        this.invitation.kids = data.kids;
+        this.invitation.numOfKidsConfrimed = data.numOfKidsConfrimed;
 
         this.invitation.invitationCode = invitationCode;
         this.guestCounts = Array(this.invitation.invitedGuest + 1).fill(0).map((x, i) => i );
+        this.kidsCounts = Array(this.invitation.kids + 1).fill(0).map((x, i) => i );
         this.invitationCodeSubmitted = true;
         this.validInvitationCode = true;
       } else {
@@ -103,7 +112,8 @@ export class InvitationComponent implements OnInit {
       rsvpConfirmed: this.invitation.rsvpConfirmed ,
       rsvpConfirmedForSangeet: this.invitation.rsvpConfirmedForSangeet,
       rsvpConfirmedForWedding: this.invitation.rsvpConfirmedForWedding,
-      rsvpConfirmedForReception: this.invitation.rsvpConfirmedForReception
+      rsvpConfirmedForReception: this.invitation.rsvpConfirmedForReception,
+      kids: this.invitation.numOfKidsConfrimed
     };
     console.log(data);
 

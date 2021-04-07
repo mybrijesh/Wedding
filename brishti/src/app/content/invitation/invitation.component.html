@@ -59,6 +59,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div *ngIf="invitation.kids > 0">
+                                                <span for="kids" class="plz-cls" style="float: left; margin-top: 10px;">How many kids attending: </span>
+                                                <select name="guest" style="width: 100%;" (change)="invitation.numOfKidsConfrimed = $event.target.value;" [value]="invitation.numOfKidsConfrimed">
+                                                    <option *ngFor="let number of kidsCounts" [value]="number" selected="(number) == invitation.numOfKidsConfrimed">{{number}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div>

@@ -23,7 +23,7 @@ app.route('/getInvitationDetail').get((req, res) => {
   var invitationCode = req.query.invitationCode;
   var query = `select firstname, lastname, invitedGuest, id,
   invitedToSangeet, invitedToWedding, invitedToReception, 
-  rsvpConfirmedForSangeet, rsvpConfirmedForWedding, rsvpConfirmedForReception from brishti.invitations where invitationCode=?`
+  rsvpConfirmedForSangeet, rsvpConfirmedForWedding, rsvpConfirmedForReception, kids, numOfKidsConfrimed from brishti.invitations where invitationCode=?`
   var data = [invitationCode];
   con.query(query, data, function (err, result) {
     if (err) {
@@ -63,10 +63,11 @@ app.route('/confirmrsvp').post((req, res) => {
   var comingToSangeet = req.body.rsvpConfirmedForSangeet ? req.body.rsvpConfirmedForSangeet : 0;
   var comingToWedding = req.body.rsvpConfirmedForWedding ? req.body.rsvpConfirmedForWedding : 0;
   var comingToReception = req.body.rsvpConfirmedForReception ? req.body.rsvpConfirmedForReception : 0;
+  var kids = req.body.kids ? req.body.kids : 0;
   var sql = `UPDATE brishti.invitations
-           SET rsvpConfirmed = ?, rsvpConfirmedForSangeet = ?, rsvpConfirmedForWedding = ?, rsvpConfirmedForReception = ?
+           SET rsvpConfirmed = ?, rsvpConfirmedForSangeet = ?, rsvpConfirmedForWedding = ?, rsvpConfirmedForReception = ?, numOfKidsConfrimed = ?
            WHERE invitationCode = ?;`;
-  var data = [rsvpConfirmed, comingToSangeet, comingToWedding, comingToReception, invitationCode];
+  var data = [rsvpConfirmed, comingToSangeet, comingToWedding, comingToReception, kids, invitationCode];
   con.query(sql, data, function (err, result) {
     // let done = true;
     if (err){
@@ -85,15 +86,15 @@ app.route('/confirmrsvp').post((req, res) => {
 })
 
 var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    multipleStatements: true
-    // host: "weddingrsvp.cuguk9cbft4p.us-west-2.rds.amazonaws.com",
-    // user: "admin",
-    // password: "Drashti_3",
-    // port: 3306,
+    // host: "localhost",
+    // user: "root",
+    // password: "password",
     // multipleStatements: true
+    host: "weddingrsvp.cuguk9cbft4p.us-west-2.rds.amazonaws.com",
+    user: "admin",
+    password: "Drashti_3",
+    port: 3306,
+    multipleStatements: true
   });
   
   con.connect(function(err) {
@@ -122,6 +123,8 @@ var con = mysql.createConnection({
       rsvpConfirmedForWedding int DEFAULT 0, \
       rsvpConfirmedForReception int DEFAULT 0, \
       rsvpConfirmed boolean DEFAULT false, \
+      kids int DEFAULT 0, \
+      numOfKidsConfrimed int DEFAULT 0, \
       PRIMARY KEY (id))";
     con.query(sql, function (err, result) {
       if (err) throw err;
@@ -134,7 +137,7 @@ var con = mysql.createConnection({
     //   console.log("Setting Query Safe Mode to false so we can update without using Key column");
     // });
 
-    var query = "INSERT INTO brishti.invitations (firstname, lastname, invitedGuest, invitationCode,rsvpConfirmedForSangeet,rsvpConfirmedForWedding,rsvpConfirmedForReception) VALUES ('brijesh', 'patel', 3, 'brij123',1,2,2);";
+    var query = "INSERT INTO brishti.invitations (firstname, lastname, invitedGuest, invitationCode,rsvpConfirmedForSangeet,rsvpConfirmedForWedding,rsvpConfirmedForReception, kids,numOfKidsConfrimed) VALUES ('brijesh', 'patel', 3, 'brij123',1,2,2,4, 3);";
     con.query(query, function (err, result) {
       if (err) throw err;
       console.log("Raw inserted into the table");
