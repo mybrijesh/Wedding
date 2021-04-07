@@ -100,36 +100,36 @@ var con = mysql.createConnection({
   con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
-    con.query("DROP DATABASE IF EXISTS brishti;", function (err, result) {
-      if (err) throw err;
-      console.log("Database Dropped");
-    });
-    // Create Database
-    con.query("CREATE DATABASE IF NOT EXISTS brishti;", function (err, result) {
-      if (err) throw err;
-      console.log("Database created");
-    });
+    // con.query("DROP DATABASE IF EXISTS brishti;", function (err, result) {
+    //   if (err) throw err;
+    //   console.log("Database Dropped");
+    // });
+    // // Create Database
+    // con.query("CREATE DATABASE IF NOT EXISTS brishti;", function (err, result) {
+    //   if (err) throw err;
+    //   console.log("Database created");
+    // });
 
-    var sql = "CREATE TABLE IF NOT EXISTS brishti.invitations (\
-      id int NOT NULL AUTO_INCREMENT,\
-      invitationCode VARCHAR(255), \
-      firstname VARCHAR(255) NOT NULL, \
-      lastname VARCHAR(255) NOT NULL, \
-      invitedGuest int DEFAULT 0,\
-      invitedToSangeet boolean DEFAULT true, \
-      invitedToWedding boolean DEFAULT true, \
-      invitedToReception boolean DEFAULT true, \
-      rsvpConfirmedForSangeet int DEFAULT 0, \
-      rsvpConfirmedForWedding int DEFAULT 0, \
-      rsvpConfirmedForReception int DEFAULT 0, \
-      rsvpConfirmed boolean DEFAULT false, \
-      kids int DEFAULT 0, \
-      numOfKidsConfrimed int DEFAULT 0, \
-      PRIMARY KEY (id))";
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("Table created");
-    });
+    // var sql = "CREATE TABLE IF NOT EXISTS brishti.invitations (\
+    //   id int NOT NULL AUTO_INCREMENT,\
+    //   invitationCode VARCHAR(255), \
+    //   firstname VARCHAR(255) NOT NULL, \
+    //   lastname VARCHAR(255) NOT NULL, \
+    //   invitedGuest int DEFAULT 0,\
+    //   invitedToSangeet boolean DEFAULT true, \
+    //   invitedToWedding boolean DEFAULT true, \
+    //   invitedToReception boolean DEFAULT true, \
+    //   rsvpConfirmedForSangeet int DEFAULT 0, \
+    //   rsvpConfirmedForWedding int DEFAULT 0, \
+    //   rsvpConfirmedForReception int DEFAULT 0, \
+    //   rsvpConfirmed boolean DEFAULT false, \
+    //   kids int DEFAULT 0, \
+    //   numOfKidsConfrimed int DEFAULT 0, \
+    //   PRIMARY KEY (id))";
+    // con.query(sql, function (err, result) {
+    //   if (err) throw err;
+    //   console.log("Table created");
+    // });
 
     // // Create Database
     // con.query("SET SQL_SAFE_UPDATES = 0;", function (err, result) {
@@ -137,11 +137,11 @@ var con = mysql.createConnection({
     //   console.log("Setting Query Safe Mode to false so we can update without using Key column");
     // });
 
-    var query = "INSERT INTO brishti.invitations (firstname, lastname, invitedGuest, invitationCode,rsvpConfirmedForSangeet,rsvpConfirmedForWedding,rsvpConfirmedForReception, kids,numOfKidsConfrimed) VALUES ('brijesh', 'patel', 3, 'brij123',1,2,2,4, 3);";
-    con.query(query, function (err, result) {
-      if (err) throw err;
-      console.log("Raw inserted into the table");
-    });    
+    // var query = "INSERT INTO brishti.invitations (firstname, lastname, invitedGuest, invitationCode,rsvpConfirmedForSangeet,rsvpConfirmedForWedding,rsvpConfirmedForReception, kids,numOfKidsConfrimed) VALUES ('brijesh', 'patel', 3, 'brij123',1,2,2,4, 3);";
+    // con.query(query, function (err, result) {
+    //   if (err) throw err;
+    //   console.log("Raw inserted into the table");
+    // });    
   });
 
 app.listen(PORT, function() {
