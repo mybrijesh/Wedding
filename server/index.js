@@ -64,10 +64,11 @@ app.route('/confirmrsvp').post((req, res) => {
   var comingToWedding = req.body.rsvpConfirmedForWedding ? req.body.rsvpConfirmedForWedding : 0;
   var comingToReception = req.body.rsvpConfirmedForReception ? req.body.rsvpConfirmedForReception : 0;
   var kids = req.body.kids ? req.body.kids : 0;
+  var modified = true;
   var sql = `UPDATE brishti.invitations
-           SET rsvpConfirmed = ?, rsvpConfirmedForSangeet = ?, rsvpConfirmedForWedding = ?, rsvpConfirmedForReception = ?, numOfKidsConfrimed = ?
+           SET rsvpConfirmed = ?, rsvpConfirmedForSangeet = ?, rsvpConfirmedForWedding = ?, rsvpConfirmedForReception = ?, numOfKidsConfrimed = ?, modified = ?
            WHERE invitationCode = ?;`;
-  var data = [rsvpConfirmed, comingToSangeet, comingToWedding, comingToReception, kids, invitationCode];
+  var data = [rsvpConfirmed, comingToSangeet, comingToWedding, comingToReception, kids, modified, invitationCode];
   con.query(sql, data, function (err, result) {
     // let done = true;
     if (err){
