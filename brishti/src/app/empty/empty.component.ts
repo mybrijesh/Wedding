@@ -14,6 +14,9 @@ interface guestList {
   rsvpConfirmedForWedding?: number;
   rsvpConfirmedForReception?: number;
   rsvpConfirmed?: boolean;
+  kids: number;
+  numOfKidsConfrimed: number;
+  modified: boolean;
 }
 
 @Component({
@@ -27,10 +30,11 @@ export class EmptyComponent implements OnInit {
    "invitedGuest","rsvpConfirmed", 
   "invitedToSangeet","invitedToWedding",
   "invitedToReception","rsvpConfirmedForSangeet",
-  "rsvpConfirmedForWedding","rsvpConfirmedForReception"
+  "rsvpConfirmedForWedding","rsvpConfirmedForReception","kids","numOfKidsConfrimed", "modified"
     ]
 
-  guestList: guestList[] = [{id: 1,
+  guestList: guestList[] = [{
+    id: 1,
     invitationCode: "test",
     firstName: "brij",
     lastName: "test",
@@ -41,19 +45,11 @@ export class EmptyComponent implements OnInit {
     rsvpConfirmedForSangeet: 3,
     rsvpConfirmedForWedding: 3,
     rsvpConfirmedForReception: 1,
-    rsvpConfirmed: true}, 
-    {id: 2,
-      invitationCode: "test",
-      firstName: "Drashti",
-      lastName: "patel",
-      invitedGuest: 5,
-      invitedToSangeet: true,
-      invitedToWedding: true,
-      invitedToReception: true,
-      rsvpConfirmedForSangeet: 0,
-      rsvpConfirmedForWedding: 3,
-      rsvpConfirmedForReception: 2,
-      rsvpConfirmed: true}]
+    rsvpConfirmed: true,
+    kids: 2,
+    numOfKidsConfrimed: 2,
+    modified: true
+  }]
 
   totalGuest:number = 0;
   totalSangeet: number = 0;
@@ -80,6 +76,30 @@ export class EmptyComponent implements OnInit {
       this.totalWedding += guest.rsvpConfirmedForWedding;
       this.totalReception += guest.rsvpConfirmedForReception;
     })
+  }
+
+  getTotalGuestForTypeAndEvent(confirmed: boolean, type: string): number{
+    let count = 0;
+
+    this.guestList.forEach(guest => {
+      if(guest.modified === confirmed){
+        count += guest[type];
+      }
+    })
+
+    return count;
+  }
+
+  getTotalGuestForEvent(confirmed): number{
+    let count = 0;
+
+    this.guestList.forEach(guest => {
+      if(guest.modified === confirmed){
+        count += 1;
+      }
+    })
+
+    return count;
   }
 
   getValue(value: any): any {
@@ -110,10 +130,27 @@ export class EmptyComponent implements OnInit {
             rsvpConfirmedForWedding : data.rsvpConfirmedForWedding,
             rsvpConfirmedForReception : data.rsvpConfirmedForReception,
             invitationCode : data.invitationCode,
-            rsvpConfirmed: Boolean(data.rsvpConfirmed)
+            rsvpConfirmed: Boolean(data.rsvpConfirmed),
+            kids: data.kids,
+            numOfKidsConfrimed: data.numOfKidsConfrimed,
+            modified: Boolean(data.modified)
           }
+          // if (guest.invitationCode !== 'brij123'){
+          //   this.guestList.push(guest);
+          // }
           this.guestList.push(guest);
         });
+
+        this.guestList.sort((a,b) => {
+          if(a.modified){
+            return -1;
+          }
+          if(b.modified){
+            return 1;
+          }
+          return 0;
+        })
+
         this.setCounts();
       }
     });

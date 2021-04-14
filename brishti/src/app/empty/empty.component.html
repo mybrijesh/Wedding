@@ -2,6 +2,58 @@
     
 
     <table>
+        <caption>Confirmed</caption>
+        <thead>
+            <tr>
+                <th id="firstName"></th>
+                
+                <th id="guest">#</th>
+    
+                <th id="Sangeet">Sangeet #</th>
+                <th id="Wedding">Wedding #</th>
+                <th id="Reception">Reception #</th>
+                <th id="numOfKidsConfrimed">Kids Coming</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total</td>
+                <td>{{getTotalGuestForEvent(true)}}</td>
+                <td>{{getTotalGuestForTypeAndEvent(true, "rsvpConfirmedForSangeet")}}</td>
+                <td>{{getTotalGuestForTypeAndEvent(true, "rsvpConfirmedForWedding")}}</td>
+                <td>{{getTotalGuestForTypeAndEvent(true, "rsvpConfirmedForReception")}}</td>
+                <td>{{getTotalGuestForTypeAndEvent(true, "numOfKidsConfrimed")}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table style="width: 300px;">
+        <caption>Not Confirmed</caption>
+        <thead>
+            <tr>
+                <th id="firstName"></th>
+                
+                <th id="guest">#</th>
+                <!-- <th id="Sangeet">Sangeet #</th>
+                <th id="Wedding">Wedding #</th>
+                <th id="Reception">Reception #</th>
+                <th id="numOfKidsConfrimed">Kids Coming</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total</td>
+                <td>{{getTotalGuestForEvent(false)}}</td>
+                <!-- <td>{{getTotalGuestForTypeAndEvent(false, "rsvpConfirmedForSangeet")}}</td>
+                <td>{{getTotalGuestForTypeAndEvent(false, "rsvpConfirmedForWedding")}}</td>
+                <td>{{getTotalGuestForTypeAndEvent(false, "rsvpConfirmedForReception")}}</td>
+                <td>{{getTotalGuestForTypeAndEvent(true, "numOfKidsConfrimed")}}</td> -->
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <caption>Guest List</caption>
         <thead>
             <tr>
                 <th id="firstName">First Name</th>
@@ -15,17 +67,14 @@
                 <th id="Sangeet">Sangeet #</th>
                 <th id="Wedding">Wedding #</th>
                 <th id="Reception">Reception #</th>
+                <th id="Kids">Kids Invited</th>
+                <th id="numOfKidsConfrimed">Kids Coming</th>
+                <th id="modified">Modified</th>
                 
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let guest of guestList">
-                <td *ngFor="let key of columnsDataName">
-                    {{ getValue(guest[key])}}
-                </td>
-            </tr>
-            <tr>
-                <td>Total</td>
+            <td>Total</td>
                 <td>-</td>
                 <td>-</td>
                 <td>{{totalGuest}}</td>
@@ -36,7 +85,15 @@
                 <td>{{totalSangeet}}</td>
                 <td>{{totalWedding}}</td>
                 <td>{{totalReception}}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            <tr *ngFor="let guest of guestList">
+                <td *ngFor="let key of columnsDataName">
+                    {{ getValue(guest[key])}}
+                </td>
             </tr>
+            
         </tbody>
     </table>
 

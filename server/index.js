@@ -64,6 +64,15 @@ app.route('/confirmrsvp').post((req, res) => {
   var comingToWedding = req.body.rsvpConfirmedForWedding ? req.body.rsvpConfirmedForWedding : 0;
   var comingToReception = req.body.rsvpConfirmedForReception ? req.body.rsvpConfirmedForReception : 0;
   var kids = req.body.kids ? req.body.kids : 0;
+
+  // if they reject the invitation set it to 0
+  if( rsvpConfirmed === false || rsvpConfirmed === 0 || rsvpConfirmed === '0'){
+    comingToSangeet = 0;
+    comingToReception = 0;
+    comingToWedding = 0;
+    kids = 0;
+  }
+  
   var modified = true;
   var sql = `UPDATE brishti.invitations
            SET rsvpConfirmed = ?, rsvpConfirmedForSangeet = ?, rsvpConfirmedForWedding = ?, rsvpConfirmedForReception = ?, numOfKidsConfrimed = ?, modified = ?
