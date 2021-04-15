@@ -135,10 +135,10 @@ export class EmptyComponent implements OnInit {
             numOfKidsConfrimed: data.numOfKidsConfrimed,
             modified: Boolean(data.modified)
           }
-          // if (guest.invitationCode !== 'brij123'){
-          //   this.guestList.push(guest);
-          // }
-          this.guestList.push(guest);
+          if (guest.invitationCode !== 'brij123'){
+            this.guestList.push(guest);
+          }
+          // this.guestList.push(guest);
         });
 
         this.guestList.sort((a,b) => {
