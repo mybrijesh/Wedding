@@ -3,3 +3,7 @@
     margin-top: 100px;
     overflow-x: scroll;
 }
+
+.changed {
+    background-color: rgb(242, 242, 242);
+}

@@ -61,6 +61,7 @@
                 <th id="code">Invitation Code</th>
                 <th id="guest">Guest #</th>
                 <th id="confirmed">RSVP Confirmed</th>
+                <th id="modified">Modified</th>
                 <th id="iSangeet">Invited to Sangeet</th>
                 <th id="iWedding">Invited to Wedding</th>
                 <th id="iReception">Invited to Reception</th>
@@ -69,7 +70,7 @@
                 <th id="Reception">Reception #</th>
                 <th id="Kids">Kids Invited</th>
                 <th id="numOfKidsConfrimed">Kids Coming</th>
-                <th id="modified">Modified</th>
+                
                 
             </tr>
         </thead>
@@ -88,7 +89,7 @@
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
-            <tr *ngFor="let guest of guestList">
+            <tr *ngFor="let guest of guestList" [ngClass]="{changed: guest.modified === false}">
                 <td *ngFor="let key of columnsDataName">
                     {{ getValue(guest[key])}}
                 </td>

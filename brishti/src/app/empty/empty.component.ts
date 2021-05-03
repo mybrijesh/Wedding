@@ -27,10 +27,10 @@ interface guestList {
 export class EmptyComponent implements OnInit {
 
   columnsDataName: string[] = ["firstName", "lastName","invitationCode",
-   "invitedGuest","rsvpConfirmed", 
+   "invitedGuest","rsvpConfirmed", "modified",
   "invitedToSangeet","invitedToWedding",
   "invitedToReception","rsvpConfirmedForSangeet",
-  "rsvpConfirmedForWedding","rsvpConfirmedForReception","kids","numOfKidsConfrimed", "modified"
+  "rsvpConfirmedForWedding","rsvpConfirmedForReception","kids","numOfKidsConfrimed"
     ]
 
   guestList: guestList[] = [{
