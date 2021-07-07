@@ -13,12 +13,12 @@
                     <form class="rsvpForm" name="form" novalidate>
                         <label for="covid" class="active fontBlack covid"><span>Required: Please get your Covid-19 vaccine done before attending any events</span></label>
                         <div *ngIf="!invitationCodeSubmitted && !dbConfirmation" class="inner-wrapper inner-wrapper-custom ">
-                            <span class="plz-cls">Please RSVP before June 4th</span>
-                            <div class="input-box">
+                            <span class="plz-cls">RSVP is now closed.</span>
+                            <!-- <div class="input-box">
                                     <input #evitecode id="invitation_code" type="text" class="validate fontBlack" (input)="evitecode.value">
                                     <label for="invitation_code" class="active fontBlack"><span *ngIf="!validInvitationCode">Enter Valid Invitation Code</span><span *ngIf="validInvitationCode">Enter Invitation Code</span></label>
-                            </div>
-                            <button type='button' (click)="update(evitecode.value)">Submit</button>
+                            </div> -->
+                            <!-- <button type='button' (click)="update(evitecode.value)">Submit</button> -->
                         </div>
                         
                         <div *ngIf="invitationCodeSubmitted && !dbConfirmation">

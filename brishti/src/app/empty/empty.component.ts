@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { data } from './FinalDBGuestList';
 
 interface guestList {
   id?: number;
@@ -17,6 +18,7 @@ interface guestList {
   kids: number;
   numOfKidsConfrimed: number;
   modified: boolean;
+  drashtiGuest: boolean;
 }
 
 @Component({
@@ -48,7 +50,8 @@ export class EmptyComponent implements OnInit {
     rsvpConfirmed: true,
     kids: 2,
     numOfKidsConfrimed: 2,
-    modified: true
+    modified: true,
+    drashtiGuest: false
   }]
 
   totalGuest:number = 0;
@@ -61,7 +64,36 @@ export class EmptyComponent implements OnInit {
 
   ngOnInit() {
     // this.setCounts();
-    this.getGuestList();
+    // this.getGuestList();
+    this.setData();
+  }
+
+  setData() {
+    const temp = [];
+    data.forEach(element => {
+      const t: guestList = {
+        id: element.id,
+        invitationCode: element.invitationCode,
+        firstName: element.firstname,
+        lastName: element.lastname,
+        invitedGuest: element.invitedGuest,
+        invitedToSangeet: Boolean(element.invitedToSangeet),
+        invitedToWedding: Boolean(element.invitedToWedding),
+        invitedToReception: Boolean(element.invitedToReception),
+        rsvpConfirmedForSangeet: element.rsvpConfirmedForSangeet,
+        rsvpConfirmedForWedding: element.rsvpConfirmedForWedding,
+        rsvpConfirmedForReception: element.rsvpConfirmedForReception,
+        rsvpConfirmed: Boolean(element.rsvpConfirmed),
+        kids: element.kids,
+        numOfKidsConfrimed: element.numOfKidsConfrimed,
+        modified: Boolean(element.modified),
+        drashtiGuest: Boolean(element.drashtiGuest)
+      }
+
+      temp.push(t);
+    });
+
+    this.guestList = temp;
   }
 
   private setCounts() {
@@ -133,7 +165,8 @@ export class EmptyComponent implements OnInit {
             rsvpConfirmed: Boolean(data.rsvpConfirmed),
             kids: data.kids,
             numOfKidsConfrimed: data.numOfKidsConfrimed,
-            modified: Boolean(data.modified)
+            modified: Boolean(data.modified),
+            drashtiGuest: Boolean(data.drashtiGuest)
           }
           if (guest.invitationCode !== 'brij123'){
             this.guestList.push(guest);
@@ -154,6 +187,25 @@ export class EmptyComponent implements OnInit {
         this.setCounts();
       }
     });
+  }
+
+  getCountForColumn(column: string, drashtiGuest?: boolean, modified?: boolean): number {
+    let count = 0;
+    this.guestList.forEach(guest => {
+      if(modified === undefined || modified === null ||
+        modified === guest.modified){
+          if(drashtiGuest === undefined || drashtiGuest === null || 
+            guest.drashtiGuest === drashtiGuest){
+            count = count + guest[column];
+          }
+      }
+    })
+    return count;
+  }
+
+  expanded(event) {
+    // console.log(event);
+    event.target.nextElementSibling.style.display = event.target.nextElementSibling.style.display === "block" ? "none" : "block";
   }
 
 }

@@ -1,0 +1,60 @@
+<div id="content" class="guestListContent">
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="col-sm-6 col-md-6" style="text-align: center; padding: 10px;">
+            <button type='button' (click)="viewChanged(viewTypes.Add)" class="viewButton">Add Expense</button>
+        </div>
+        <div class="col-sm-6 col-md-6" style="text-align: center; padding: 10px;">
+            <button type='button' (click)="viewChanged(viewTypes.View)" class="viewButton">View Expense</button>
+        </div>
+    </div>
+    <div *ngIf="viewTypes.View === selectedView">
+        <div class="inner-wrapper">
+            <div class="input-box">
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-12" style="margin: 20px;">
+                        <select (change)="expenseChanged($event.target.value)">
+                            <option value="" disabled selected>Select your Vender</option>
+                            <option *ngFor="let item of expenseList" [value]="item">{{item}}</option>
+                        </select>
+                    
+                        <h3>{{selectedExpense}}</h3>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12" style="display: inline-flex; margin: 20px;">
+                        <label class="col-sm-4 col-md-4" for="price">Paid Amount</label>
+                        <input type="number" min="0" style="color: black;" (keyup)="paidAmoundChanged($event.target.value)">
+                    </div>
+                    <div class="col-sm-12 col-md-12" style="display: inline-flex;">
+                        <label class="col-sm-4 col-md-4" for="price">Paid by</label>
+                        <select (change)="paidByChanged($event.target.value)">
+                            <option value="" disabled selected>Select Paid by</option>
+                            <option value="brijesh">Brijesh</option>
+                            <option value="drashti">Drashti</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 col-md-12" style="display: inline-flex;  margin: 20px;">
+                        <label class="col-sm-4 col-md-4" for="price">Date</label>
+                        <input  style="color: black;" type="date" id="start" name="trip-start" (change)="dateChanged($event.target.value);"
+                            [value]="currDate">
+                    </div>
+    
+                    <div class="col-sm-12 col-md-12" style="display: inline-flex;  margin: 20px;">
+                        <label class="col-sm-4 col-md-4" for="price">Payment Type</label>
+                        <input  placeholder="Payment Type" style="color: black;" (keyup)="paymentTypeChanged($event.target.value)">
+                    </div>
+    
+                    <div class="col-sm-12 col-md-12" style="display: inline-flex;  margin: 20px;">
+                        <label class="col-sm-4 col-md-4" for="price">Description</label>
+                        <input  placeholder="Note" style="color: black;" (keyup)="descriptionChanged($event.target.value)">
+                    </div>
+
+                    <div class="col-sm-6 col-md-6" style="text-align: center; padding: 10px;">
+                        <button type='button' class="viewButton" (click)="submitExpense()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

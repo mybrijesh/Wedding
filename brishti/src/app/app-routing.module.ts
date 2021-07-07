@@ -5,12 +5,14 @@ import { InvitationComponent } from './content/invitation/invitation.component';
 import { InvitationDetailComponent } from './content/invitation-detail/invitation-detail.component';
 import { BannerComponent } from './banner/banner.component';
 import { EmptyComponent } from './empty/empty.component';
+import { ExpenseComponent } from './expense/expense.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'guestList', component: EmptyComponent },
+  { path: 'expense', component: ExpenseComponent },
   // {path: 'home', loadChildren: () => import('./content/home/home.component').then(mod => mod.HomeComponent)},
   // { path: 'invitation/:invitecode', component: InvitationDetailComponent },
   // { path: 'invitation', component: InvitationComponent },

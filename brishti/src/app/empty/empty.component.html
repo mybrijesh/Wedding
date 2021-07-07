@@ -18,84 +18,212 @@
         <tbody>
             <tr>
                 <td>Total</td>
-                <td>{{getTotalGuestForEvent(true)}}</td>
-                <td>{{getTotalGuestForTypeAndEvent(true, "rsvpConfirmedForSangeet")}}</td>
-                <td>{{getTotalGuestForTypeAndEvent(true, "rsvpConfirmedForWedding")}}</td>
-                <td>{{getTotalGuestForTypeAndEvent(true, "rsvpConfirmedForReception")}}</td>
-                <td>{{getTotalGuestForTypeAndEvent(true, "numOfKidsConfrimed")}}</td>
+                <td>{{getCountForColumn("invitedGuest")}}</td>
+                <td>{{getCountForColumn("rsvpConfirmedForSangeet")}}</td>
+                <td>{{getCountForColumn("rsvpConfirmedForWedding")}}</td>
+                <td>{{getCountForColumn("rsvpConfirmedForReception")}}</td>
+                <td>{{getCountForColumn("numOfKidsConfrimed")}}</td>
             </tr>
         </tbody>
     </table>
 
-    <table style="width: 300px;">
+    <!-- <table style="width: 300px;">
         <caption>Not Confirmed</caption>
         <thead>
             <tr>
                 <th id="firstName"></th>
                 
-                <th id="guest">#</th>
+                <th id="guest">#</th> -->
                 <!-- <th id="Sangeet">Sangeet #</th>
                 <th id="Wedding">Wedding #</th>
                 <th id="Reception">Reception #</th>
                 <th id="numOfKidsConfrimed">Kids Coming</th> -->
-            </tr>
+            <!-- </tr>
         </thead>
         <tbody>
             <tr>
                 <td>Total</td>
-                <td>{{getTotalGuestForEvent(false)}}</td>
+                <td>{{getTotalGuestForEvent(false)}}</td> -->
                 <!-- <td>{{getTotalGuestForTypeAndEvent(false, "rsvpConfirmedForSangeet")}}</td>
                 <td>{{getTotalGuestForTypeAndEvent(false, "rsvpConfirmedForWedding")}}</td>
                 <td>{{getTotalGuestForTypeAndEvent(false, "rsvpConfirmedForReception")}}</td>
                 <td>{{getTotalGuestForTypeAndEvent(true, "numOfKidsConfrimed")}}</td> -->
-            </tr>
+            <!-- </tr>
         </tbody>
-    </table>
+    </table> -->
 
-    <table>
-        <caption>Guest List</caption>
-        <thead>
-            <tr>
-                <th id="firstName">First Name</th>
-                <th id="lastName">Last Name</th>
-                <th id="code">Invitation Code</th>
-                <th id="guest">Guest #</th>
-                <th id="confirmed">RSVP Confirmed</th>
-                <th id="modified">Modified</th>
-                <th id="iSangeet">Invited to Sangeet</th>
-                <th id="iWedding">Invited to Wedding</th>
-                <th id="iReception">Invited to Reception</th>
-                <th id="Sangeet">Sangeet #</th>
-                <th id="Wedding">Wedding #</th>
-                <th id="Reception">Reception #</th>
-                <th id="Kids">Kids Invited</th>
-                <th id="numOfKidsConfrimed">Kids Coming</th>
-                
-                
-            </tr>
-        </thead>
-        <tbody>
-            <td>Total</td>
-                <td>-</td>
-                <td>-</td>
-                <td>{{totalGuest}}</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>{{totalSangeet}}</td>
-                <td>{{totalWedding}}</td>
-                <td>{{totalReception}}</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            <tr *ngFor="let guest of guestList" [ngClass]="{changed: guest.modified === false}">
-                <td *ngFor="let key of columnsDataName">
-                    {{ getValue(guest[key])}}
-                </td>
-            </tr>
-            
-        </tbody>
-    </table>
+    
+
+    <button type="button" class="collapsible" (click)="expanded($event)">Drashti Guest</button>
+    <div class="content">
+        <table>
+            <caption>Guest List</caption>
+            <thead>
+                <tr>
+                    <th id="firstName">First Name</th>
+                    <th id="lastName">Last Name</th>
+                    <th id="code">Invitation Code</th>
+                    <th id="guest">Guest #</th>
+                    <th id="confirmed">RSVP Confirmed</th>
+                    <th id="modified">Modified</th>
+                    <th id="iSangeet">Invited to Sangeet</th>
+                    <th id="iWedding">Invited to Wedding</th>
+                    <th id="iReception">Invited to Reception</th>
+                    <th id="Sangeet">Sangeet #</th>
+                    <th id="Wedding">Wedding #</th>
+                    <th id="Reception">Reception #</th>
+                    <th id="Kids">Kids Invited</th>
+                    <th id="numOfKidsConfrimed">Kids Coming</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Invited Total</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("invitedGuest", true)}}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForSangeet", true)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForWedding", true)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForReception", true)}}</td>
+                    
+                    <td>-</td>
+                    <td>{{getCountForColumn("numOfKidsConfrimed", true)}}</td>
+                </tr>
+                <tr>
+                    <td>Not Confirmed</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("invitedGuest", true, false)}}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForSangeet", true, false)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForWedding", true, false)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForReception", true, false)}}</td>
+                    
+                    <td>-</td>
+                    <td>{{getCountForColumn("numOfKidsConfrimed", true, false)}}</td>
+                </tr>
+                <tr>
+                    <td>Confirmed</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("invitedGuest", true, true)}}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForSangeet", true, true)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForWedding", true, true)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForReception", true, true)}}</td>
+                    
+                    <td>-</td>
+                    <td>{{getCountForColumn("numOfKidsConfrimed", true, true)}}</td>
+                </tr>
+
+                <ng-container *ngFor="let guest of guestList">
+                    <tr  *ngIf="guest.drashtiGuest === true"  [ngClass]="{changed: guest.modified === false}">
+                        <td *ngFor="let key of columnsDataName">
+                            {{ getValue(guest[key])}}
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="button" class="collapsible" (click)="expanded($event)">Brijesh Guest</button>
+    <div class="content">
+        <table>
+            <caption>Guest List</caption>
+            <thead>
+                <tr>
+                    <th id="firstName">First Name</th>
+                    <th id="lastName">Last Name</th>
+                    <th id="code">Invitation Code</th>
+                    <th id="guest">Guest #</th>
+                    <th id="confirmed">RSVP Confirmed</th>
+                    <th id="modified">Modified</th>
+                    <th id="iSangeet">Invited to Sangeet</th>
+                    <th id="iWedding">Invited to Wedding</th>
+                    <th id="iReception">Invited to Reception</th>
+                    <th id="Sangeet">Sangeet #</th>
+                    <th id="Wedding">Wedding #</th>
+                    <th id="Reception">Reception #</th>
+                    <th id="Kids">Kids Invited</th>
+                    <th id="numOfKidsConfrimed">Kids Coming</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Invited Total</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("invitedGuest", false)}}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForSangeet", false)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForWedding", false)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForReception", false)}}</td>
+                    
+                    <td>-</td>
+                    <td>{{getCountForColumn("numOfKidsConfrimed", false)}}</td>
+                </tr>
+                <tr>
+                    <td>Not Confirmed</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("invitedGuest", false, false)}}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForSangeet", false, false)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForWedding", false, false)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForReception", false, false)}}</td>
+                   
+                    <td>-</td>
+                    <td>{{getCountForColumn("numOfKidsConfrimed", false, false)}}</td>
+                </tr>
+                <tr>
+                    <td>Confirmed</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("invitedGuest", false, true)}}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForSangeet", false, true)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForWedding", false, true)}}</td>
+                    <td>{{getCountForColumn("rsvpConfirmedForReception", false, true)}}</td>
+                    
+                    <td>-</td>
+                    <td>{{getCountForColumn("numOfKidsConfrimed", false, true)}}</td>
+                </tr>
+
+                <ng-container *ngFor="let guest of guestList">
+                    <tr  *ngIf="guest.drashtiGuest === false"  [ngClass]="{changed: guest.modified === false}">
+                        <td *ngFor="let key of columnsDataName">
+                            {{ getValue(guest[key])}}
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
 
 </div>

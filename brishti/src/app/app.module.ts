@@ -12,6 +12,7 @@ import { InvitationComponent } from './content/invitation/invitation.component';
 import { InvitationDetailComponent } from './content/invitation-detail/invitation-detail.component';
 import { EmptyComponent } from './empty/empty.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ExpenseComponent } from './expense/expense.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     InvitationComponent,
     InvitationDetailComponent,
-    EmptyComponent
+    EmptyComponent,
+    ExpenseComponent
   ],
   imports: [
     BrowserModule,
